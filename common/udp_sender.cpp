@@ -1,4 +1,4 @@
-#include "udp.h"
+#include "udp_sender.h"
 #include <iostream>
 
 UdpSender::UdpSender()
@@ -43,49 +43,4 @@ UdpSender::~UdpSender()
 {
     close(m_sockfd); // TODO check if inited
     std::cout << "Socket " << m_sockfd << " closed" << std::endl;
-}
-
-UdpListener::UdpListener()
-{
-    unsigned port = 45163;
-    
-    // Creating socket file descriptor
-    if ((m_sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-      perror("socket creation failed");
-      exit(EXIT_FAILURE);
-    }
-
-    memset(&address, 0, sizeof(address)); 
-        
-    // Filling server information 
-    address.sin_family = AF_INET; 
-    address.sin_port = htons(port); 
-    address.sin_addr.s_addr = INADDR_ANY; 
-
-    // Bind the socket with the server address
-    if (int rc = bind(m_sockfd, (const struct sockaddr *)&address, sizeof(address)); rc < 0) {
-      std::cout << "Binding on port " << port << " failed; rc: " << rc << std::endl;
-      return;
-    }
-        
-    std::cout << "Client is listening on port " << port << std::endl;
-}
-
-UdpListener::~UdpListener()
-{
-    close(m_sockfd); 
-    std::cout << "Socket " << m_sockfd << " closed" << std::endl;
-}
-
-bool UdpListener::listen(std::function<void(const Message &)> callback)
-{
-    int n, len;
-    n = recvfrom(m_sockfd, (char *)buffer, 1024, MSG_WAITALL,
-        (struct sockaddr *)&address, (socklen_t *)&len); 
-    buffer[n] = '\0'; 
-    printf("Server : %s\n", buffer); 
-
-    callback(Message());
-    
-    return true;
 }
