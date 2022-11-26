@@ -27,6 +27,6 @@ int main(int, char **)
         std::cout << "-------" << std::endl;
     });
 
-    std::cout << "End" << std::endl;
+    std::cout << "Graceful stop" << std::endl;
     return 0;
 }

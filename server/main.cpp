@@ -21,5 +21,7 @@ int main(int, char **)
         }
         sender.send(msg);
     }, std::chrono::milliseconds(100));
+
+    std::cout << "Graceful stop" << std::endl;
     return 0;
 }
