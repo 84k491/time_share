@@ -1,10 +1,9 @@
 #include "udp_listener.h"
 #include <iostream>
 
-UdpListener::UdpListener()
+UdpListener::UdpListener(std::function<void(const void *, size_t)> callback, unsigned port)
+    : m_callback(std::move(callback))
 {
-    unsigned port = 45163;
-
     if ((m_sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
         std::cout << "Socket creating failed" << std::endl;
         return;
@@ -40,7 +39,7 @@ UdpListener::~UdpListener()
     std::cout << "Socket " << m_sockfd << " closed" << std::endl;
 }
 
-void UdpListener::listen_loop(std::function<void(const void *, size_t)> callback)
+void UdpListener::listen_loop()
 {
     if (!m_is_ready) {
         return;
@@ -61,7 +60,7 @@ void UdpListener::listen_loop(std::function<void(const void *, size_t)> callback
              int len = 0;
              int bytes_received = recvfrom(m_sockfd, m_data.data(), m_data.size(), MSG_WAITALL,
                  (struct sockaddr *)&address, (socklen_t *)&len);
-             callback(m_data.data(), bytes_received);
+             m_callback(m_data.data(), bytes_received);
           }
        }
        else {

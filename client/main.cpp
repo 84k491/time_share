@@ -6,8 +6,15 @@
 class TimestampConsumerApp
 {
 public:
-    TimestampConsumerApp()
-        : m_signal_handler([this](int) { m_listener.stop(); })
+    TimestampConsumerApp(unsigned port)
+        : m_listener([this](){
+            const auto * msg_ptr = MessageDecoder::decode(data, size);
+            if (!msg_ptr) {
+                return;
+            }
+            on_message_received(*msg_ptr);
+        }, port)
+        , m_signal_handler([this](int) { m_listener.stop(); })
     {
     }
 
@@ -18,13 +25,7 @@ public:
             return -1;
         }
 
-        m_listener.listen_loop([this](const void * data, size_t size) {
-            const auto * msg_ptr = MessageDecoder::decode(data, size);
-            if (!msg_ptr) {
-                return;
-            }
-            on_message_received(*msg_ptr);
-        });
+        m_listener.listen_loop();
         return 0;
     }
 
@@ -46,7 +47,7 @@ private:
 
 int main(int, char **)
 {
-    TimestampConsumerApp app;
+    TimestampConsumerApp app(45163);
     int rc = app.work();
     std::cout << "Graceful stop" << std::endl;
     return rc;

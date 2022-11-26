@@ -1,10 +1,8 @@
 #include "udp_sender.h"
 #include <iostream>
 
-UdpSender::UdpSender()
+UdpSender::UdpSender(unsigned port)
 {
-    unsigned to_port = 45163; // TODO remove hardcode
-
     // Creating socket file descriptor
     if ((m_sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
       std::cout << "Socket creating failed" << std::endl;
@@ -20,7 +18,7 @@ UdpSender::UdpSender()
     memset(&cliaddr, 0, sizeof(cliaddr)); 
     cliaddr.sin_family = AF_INET;
     cliaddr.sin_addr.s_addr = INADDR_BROADCAST;
-    cliaddr.sin_port = htons(to_port);
+    cliaddr.sin_port = htons(port);
 }
 
 bool UdpSender::send(const Message & msg)

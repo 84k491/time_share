@@ -12,7 +12,7 @@
 class UdpSender
 {
 public:
-    UdpSender();
+    UdpSender(unsigned port);
     ~UdpSender();
     // TODO other ctors = delete
 
