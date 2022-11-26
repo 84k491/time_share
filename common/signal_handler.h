@@ -3,6 +3,9 @@
 #include <iostream>
 
 #include <csignal>
+#include <signal.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include <set>
 #include <thread>
 #include <functional>

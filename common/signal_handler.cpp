@@ -1,7 +1,4 @@
 #include <signal_handler.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <signal.h> // TODO remove?
 #include <iostream>
 
 OneShotSignalHandler::OneShotSignalHandler(std::function<void(int)> callback)

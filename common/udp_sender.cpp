@@ -28,10 +28,10 @@ UdpSender::UdpSender()
 
 bool UdpSender::send(const Message & msg)
 {
-    std::cout << "sending msg to " << cliaddr.sin_addr.s_addr << "; port: " << cliaddr.sin_port << std::endl;
+    // std::cout << "sending msg to " << cliaddr.sin_addr.s_addr << "; port: " << cliaddr.sin_port << std::endl;
     if (int rc = sendto(m_sockfd, msg.data(), msg.size(), 0,
         (const sockaddr *)&cliaddr, sizeof(cliaddr)); rc > 0) {
-        std::cout << "Message sent. rc: " << rc << std::endl;
+        // std::cout << "Message sent. rc: " << rc << std::endl;
         return true;
     }
 

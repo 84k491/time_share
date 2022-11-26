@@ -13,7 +13,7 @@
 #include <iostream>
 
 #include <message.h>
-#include <signal_handler.h>
+#include "signal_handler.h"
 
 class MessageDecoder
 {
