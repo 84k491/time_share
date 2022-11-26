@@ -2,8 +2,9 @@
 #include <iostream>
 
 UdpListener::UdpListener()
-    : m_signal_handler([](int) {
+    : m_signal_handler([this](int) {
         std::cout << "Callback called!" << std::endl;
+        m_need_to_stop.store(true);
     })
 {
     unsigned port = 45163;
@@ -33,14 +34,36 @@ UdpListener::~UdpListener()
     std::cout << "Socket " << m_sockfd << " closed" << std::endl;
 }
 
-void UdpListener::listen(std::function<void(const void *, size_t)> callback)
+void UdpListener::listen_loop(std::function<void(const void *, size_t)> callback)
 {
     if (!m_is_ready) {
         return;
     }
-    int len = 0;
-    int bytes_received = recvfrom(m_sockfd, m_data.data(), m_data.size(), MSG_WAITALL,
-        (struct sockaddr *)&address, (socklen_t *)&len);
+    // int len = 0;
+    // int bytes_received = recvfrom(m_sockfd, m_data.data(), m_data.size(), MSG_WAITALL,
+        // (struct sockaddr *)&address, (socklen_t *)&len);
 
-    callback(m_data.data(), bytes_received);
+    while(!m_need_to_stop)
+    {
+       struct timeval timeout = {1, 0};
+ 
+       fd_set readSet;
+       FD_ZERO(&readSet);
+       FD_SET(m_sockfd, &readSet);
+ 
+       if (select(m_sockfd+1, &readSet, NULL, NULL, &timeout) >= 0)
+       {
+          if (FD_ISSET(m_sockfd, &readSet))
+          {
+             int len = 0;
+             int bytes_received = recvfrom(m_sockfd, m_data.data(), m_data.size(), MSG_WAITALL,
+                 (struct sockaddr *)&address, (socklen_t *)&len);
+             callback(m_data.data(), bytes_received);
+          }
+       }
+       else {
+            std::cout << "some error" << std::endl;
+        }
+    }
+    std::cout << "Stop listening" << std::endl;
 }

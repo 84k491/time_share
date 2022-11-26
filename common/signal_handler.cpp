@@ -5,15 +5,15 @@
 #include <iostream>
 #include <csignal>
 
-namespace
-{
-    volatile std::sig_atomic_t g_signal_status;
-}
+// namespace
+// {
+    // volatile std::sig_atomic_t g_signal_status;
+// }
  
-void signal_handler(int signal)
+void signal_handler(int)
 {
-    g_signal_status = signal;
-    std::cout << "some signal recevied" << std::endl;
+    // g_signal_status = signal;
+    // std::cout << "some signal recevied" << std::endl;
 }
 
 OneShotSignalHandler::OneShotSignalHandler(std::function<void(int)> callback)

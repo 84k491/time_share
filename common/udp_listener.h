@@ -7,6 +7,7 @@
 #include <arpa/inet.h> 
 #include <netinet/in.h> 
 
+#include <atomic>
 #include <functional>
 #include <array>
 #include <iostream>
@@ -39,7 +40,7 @@ public:
     UdpListener();
     ~UdpListener();
 
-    void listen(std::function<void(const void *, size_t)> callback);
+    void listen_loop(std::function<void(const void *, size_t)> callback);
     bool is_ready() const { return m_is_ready; }
 
 private:
@@ -47,5 +48,6 @@ private:
     sockaddr_in address;
     std::array<char, 1024> m_data;
     bool m_is_ready = false;
+    std::atomic_bool m_need_to_stop = false;
     OneShotSignalHandler m_signal_handler;
 };

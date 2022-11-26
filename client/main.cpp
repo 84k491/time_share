@@ -14,16 +14,14 @@ int main(int, char **)
         return -1;
     }
 
-    while (true) {
-        listener.listen([](const void * data, size_t size) {
-            const auto * msg = MessageDecoder::decode(data, size);
-            if (!msg) {
-                std::cout << "Wrong message received!" << std::endl;
-                return;
-            }
-            std::cout << "Message received!" << std::endl;
-        });
-    }
+    listener.listen_loop([](const void * data, size_t size) {
+        const auto * msg = MessageDecoder::decode(data, size);
+        if (!msg) {
+            std::cout << "Wrong message received!" << std::endl;
+            return;
+        }
+        std::cout << "Message received!" << std::endl;
+    });
     std::cout << "End" << std::endl;
     return 0;
 }
