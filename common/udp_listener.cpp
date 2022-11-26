@@ -62,8 +62,8 @@ void UdpListener::listen_loop(std::function<void(const void *, size_t)> callback
           }
        }
        else {
-            std::cout << "some error" << std::endl;
-        }
+            std::cout << "some error" << std::endl; // TODO use more clear message
+       }
     }
     std::cout << "Stop listening" << std::endl;
 }

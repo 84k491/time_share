@@ -15,13 +15,15 @@ int main(int, char **)
     }
 
     listener.listen_loop([](const void * data, size_t size) {
-        const auto * msg = MessageDecoder::decode(data, size);
-        if (!msg) {
+        const auto * msg_ptr = MessageDecoder::decode(data, size);
+        if (!msg_ptr) {
             std::cout << "Wrong message received!" << std::endl;
             return;
         }
-        std::cout << "Message received!" << std::endl;
+        const auto & msg = *msg_ptr;
+        std::cout << "Message received!. Value: " << msg.timestamp() << std::endl;
     });
+
     std::cout << "End" << std::endl;
     return 0;
 }
