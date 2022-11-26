@@ -34,7 +34,7 @@ public:
     }
 
     const void * data() const { return this; }
-    static size_t size() { return sizeof(Message); }
+    static constexpr size_t size() { return sizeof(Message); }
 
 private:
     std::array<char, s_header.size()> m_verification_header;

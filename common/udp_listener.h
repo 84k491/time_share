@@ -42,6 +42,7 @@ public:
 
     void listen_loop(std::function<void(const void *, size_t)> callback);
     bool is_ready() const { return m_is_ready; }
+    void stop();
 
 private:
     int m_sockfd = {};
@@ -49,5 +50,4 @@ private:
     std::array<char, 1024> m_data;
     bool m_is_ready = false;
     std::atomic_bool m_need_to_stop = false;
-    OneShotSignalHandler m_signal_handler;
 };

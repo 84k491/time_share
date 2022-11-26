@@ -2,10 +2,6 @@
 #include <iostream>
 
 UdpListener::UdpListener()
-    : m_signal_handler([this](int) {
-        std::cout << "Callback called!" << std::endl;
-        m_need_to_stop.store(true);
-    })
 {
     unsigned port = 45163;
 
@@ -31,6 +27,11 @@ UdpListener::UdpListener()
 
     m_is_ready = true;
     std::cout << "Client is listening on port " << port << std::endl;
+}
+
+void UdpListener::stop()
+{
+    m_need_to_stop.store(true);
 }
 
 UdpListener::~UdpListener()
