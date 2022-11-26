@@ -1,13 +1,10 @@
 #include <iostream>
 #include "../common/udp_listener.h"
-#include <csignal> // TODO remove
+#include "signal_handler.h"
 
 int main(int, char **)
 {
-    sigset_t signals;
-    sigemptyset(&signals);
-    sigaddset(&signals, SIGUSR1);
-    pthread_sigmask(SIG_BLOCK, &signals, nullptr);
+    OneShotSignalHandler::block_signals();
 
     UdpListener listener;
     if (!listener.is_ready()) {
