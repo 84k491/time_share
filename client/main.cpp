@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../common/udp_listener.h"
 #include "signal_handler.h"
+#include "timestamp_factory.h"
 
 int main(int, char **)
 {
@@ -18,7 +19,12 @@ int main(int, char **)
             return;
         }
         const auto & msg = *msg_ptr;
-        std::cout << "Message received!. Value: " << msg.timestamp() << std::endl;
+        const auto local_ts = TimestampFactory::get_timestamp_ms();
+        const auto recevied_ts = msg.timestamp();
+        std::cout << "Local timestamp   : " << local_ts << std::endl;
+        std::cout << "Recevied timestamp: " << recevied_ts << std::endl;
+        std::cout << "Difference        : " << local_ts - recevied_ts << std::endl;
+        std::cout << "-------" << std::endl;
     });
 
     std::cout << "End" << std::endl;
