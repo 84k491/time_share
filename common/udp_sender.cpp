@@ -11,27 +11,22 @@ UdpSender::UdpSender()
       return;
     }
 
-    memset(&servaddr, 0, sizeof(servaddr)); 
-    memset(&cliaddr, 0, sizeof(cliaddr)); 
-        
-    cliaddr.sin_family = AF_INET;
-    cliaddr.sin_addr.s_addr = INADDR_ANY;
-    cliaddr.sin_port = htons(to_port);
+    int turn_on = 1;
+    if (setsockopt(m_sockfd, SOL_SOCKET, SO_BROADCAST, &turn_on, (socklen_t)sizeof(turn_on)) < 0) {
+        std::cout << "Can't set up broadcast" << std::endl;
+        return;
+    }
 
-    // if (bind(m_sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) {
-      // std::cout << "Binding on port " << local_port << " failed" << std::endl;
-      // return;
-    // }
-    // std::cout << "Socket " << m_sockfd << " binded" << std::endl;
-    std::cout << "Server active" << std::endl;
+    memset(&cliaddr, 0, sizeof(cliaddr)); 
+    cliaddr.sin_family = AF_INET;
+    cliaddr.sin_addr.s_addr = INADDR_BROADCAST;
+    cliaddr.sin_port = htons(to_port);
 }
 
 bool UdpSender::send(const Message & msg)
 {
-    // std::cout << "sending msg to " << cliaddr.sin_addr.s_addr << "; port: " << cliaddr.sin_port << std::endl;
     if (int rc = sendto(m_sockfd, msg.data(), msg.size(), 0,
         (const sockaddr *)&cliaddr, sizeof(cliaddr)); rc > 0) {
-        // std::cout << "Message sent. rc: " << rc << std::endl;
         return true;
     }
 

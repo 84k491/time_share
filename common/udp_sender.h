@@ -20,6 +20,5 @@ public:
 
 private:
     int m_sockfd = {};
-    sockaddr_in servaddr;
     sockaddr_in cliaddr;
 };

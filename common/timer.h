@@ -22,5 +22,4 @@ public:
 
 private:
     std::atomic_bool m_need_to_stop = false;
-    std::function<void()> m_callback;
 };
