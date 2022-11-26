@@ -20,9 +20,7 @@ OneShotSignalHandler::OneShotSignalHandler(std::function<void(int)> callback)
 
 OneShotSignalHandler::~OneShotSignalHandler()
 {
-    std::cout << "signal handler dtor" << std::endl;
     if (!m_shot) {
-        std::cout << "raising signal" << std::endl;
         pthread_kill(m_thread_ptr->native_handle(), signal_to_catch);
     }
     m_thread_ptr->join();

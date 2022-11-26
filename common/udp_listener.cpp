@@ -13,6 +13,11 @@ UdpListener::UdpListener()
         std::cout << "Socket creating failed" << std::endl;
         return;
     }
+    const int enable = 1;
+    if (setsockopt(m_sockfd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {
+        std::cout << "Setting REUSEADDR failed" << std::endl;
+        return;
+    }
 
     memset(&address, 0, sizeof(address));
     address.sin_family = AF_INET;
