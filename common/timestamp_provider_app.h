@@ -8,9 +8,11 @@ class TimestampProviderApp
 {
 public:
     TimestampProviderApp(unsigned port);
-    void work();
+    int work();
+    void set_iterations_limit(size_t m_iterations_limit);
 
 private:
+    size_t m_iterations_limit = 0;
     UdpSender m_sender;
     Timer m_timer;
     OneShotSignalHandler m_signal_handler;
