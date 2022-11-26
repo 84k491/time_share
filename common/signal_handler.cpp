@@ -3,26 +3,32 @@
 
 OneShotSignalHandler::OneShotSignalHandler(std::function<void(int)> callback)
     : m_callback(callback)
-    , m_thread([this]() {
+{
+    block_signal();
+    m_thread_ptr = std::make_unique<std::thread>([this]() {
 
         sigset_t signals;
         sigemptyset(&signals);
         sigaddset(&signals, signal_to_catch);
-        std::cout << "Waiting for signal" << std::endl;
         int signal_number = 0;
         sigwait(&signals, &signal_number);
+        m_shot = true;
         std::cout << "Received correct signal. Invoking callback" << std::endl;
         m_callback(signal_to_catch);
-    })
-{
+    });
 }
 
 OneShotSignalHandler::~OneShotSignalHandler()
 {
-    m_thread.join();
+    std::cout << "signal handler dtor" << std::endl;
+    if (!m_shot) {
+        std::cout << "raising signal" << std::endl;
+        pthread_kill(m_thread_ptr->native_handle(), signal_to_catch);
+    }
+    m_thread_ptr->join();
 }
 
-void OneShotSignalHandler::block_signals()
+void OneShotSignalHandler::block_signal()
 {
     sigset_t signals;
     sigemptyset(&signals);

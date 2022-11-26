@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include <atomic>
 #include <csignal>
 #include <signal.h>
 #include <sys/types.h>
@@ -9,6 +10,7 @@
 #include <set>
 #include <thread>
 #include <functional>
+#include <memory>
 
 class OneShotSignalHandler
 {
@@ -17,8 +19,11 @@ public:
     OneShotSignalHandler(std::function<void(int)> callback);
     ~OneShotSignalHandler();
 
-    static void block_signals();
 private:
+    static void block_signal();
+
+private:
+    std::atomic_bool m_shot = false;
     std::function<void(int)> m_callback;
-    std::thread m_thread;
+    std::unique_ptr<std::thread> m_thread_ptr;
 };

@@ -5,8 +5,6 @@
 
 int main(int, char **)
 {
-    OneShotSignalHandler::block_signals();
-
     UdpListener listener;
     if (!listener.is_ready()) {
         return -1;
