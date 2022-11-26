@@ -10,7 +10,8 @@ public:
         int rc = 0;
         auto timepoint = std::chrono::steady_clock::now();
         size_t count = 0;
-        while (!m_need_to_stop.load() || 0 == rc || ((0 == limit) != limit > count)) {
+        while ((!m_need_to_stop.load() || 0 == rc) &&
+            ((0 == limit) != limit > count)) {
             ++count;
             timepoint += interval;
             std::this_thread::sleep_until(timepoint);

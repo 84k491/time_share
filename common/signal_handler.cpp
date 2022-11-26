@@ -13,7 +13,6 @@ OneShotSignalHandler::OneShotSignalHandler(std::function<void(int)> callback)
         int signal_number = 0;
         sigwait(&signals, &signal_number);
         m_shot = true;
-        std::cout << "Received correct signal. Invoking callback" << std::endl;
         m_callback(signal_to_catch);
     });
 }

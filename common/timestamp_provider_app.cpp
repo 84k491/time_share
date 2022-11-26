@@ -1,8 +1,8 @@
 #include "timestamp_provider_app.h"
 
 
-TimestampProviderApp::TimestampProviderApp(unsigned port)
-    : m_sender(port)
+TimestampProviderApp::TimestampProviderApp(ISender & sender)
+    : m_sender(sender)
     , m_signal_handler([this](auto) { m_timer.stop(); })
 {
 }
@@ -19,8 +19,7 @@ int TimestampProviderApp::work()
             return -1;
         }
         std::cout << "Sending timestamp: " << ts << std::endl;
-        m_sender.send(msg);
-        return 0;
+        return m_sender.send(msg);
     }, std::chrono::milliseconds(100), m_iterations_limit);
 }
 

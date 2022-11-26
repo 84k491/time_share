@@ -19,17 +19,16 @@ UdpSender::UdpSender(unsigned port)
     cliaddr.sin_family = AF_INET;
     cliaddr.sin_addr.s_addr = INADDR_BROADCAST;
     cliaddr.sin_port = htons(port);
+    m_is_ready = true;
 }
 
-bool UdpSender::send(const Message & msg)
+int UdpSender::send(const Message & msg)
 {
-    if (int rc = sendto(m_sockfd, msg.data(), msg.size(), 0,
+    int rc = -1;
+    if (rc = sendto(m_sockfd, msg.data(), msg.size(), 0,
         (const sockaddr *)&cliaddr, sizeof(cliaddr)); rc > 0) {
-        return true;
     }
-
-    std::cout << "Sending failed" << std::endl;
-    return false;
+    return rc;
 }
 
 UdpSender::~UdpSender()

@@ -1,19 +1,26 @@
 #include "signal_handler.h"
 #include <iostream>
-#include "udp_sender.h"
+#include "i_sender.h"
 #include "timestamp_factory.h"
 #include "timer.h"
 
+namespace test {
+class SenderTest;
+}
+
 class TimestampProviderApp
 {
+    friend class test::SenderTest;
 public:
-    TimestampProviderApp(unsigned port);
+    TimestampProviderApp(ISender & sender);
     int work();
+
+private:
     void set_iterations_limit(size_t m_iterations_limit);
 
 private:
     size_t m_iterations_limit = 0;
-    UdpSender m_sender;
+    ISender & m_sender;
     Timer m_timer;
     OneShotSignalHandler m_signal_handler;
 };

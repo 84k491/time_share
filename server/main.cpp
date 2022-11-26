@@ -1,9 +1,11 @@
 #include <iostream>
 #include "timestamp_provider_app.h"
+#include "udp_sender.h"
 
 int main(int, char **)
 {
-    TimestampProviderApp app(45163);
+    UdpSender sender(45163);
+    TimestampProviderApp app(sender);
     const int rc = app.work();
     std::cout << "Graceful stop" << std::endl;
     return rc;

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <algorithm>
 #include <array>
 #include <string_view>
@@ -5,9 +7,9 @@
 
 class Message
 {
+public:
     static constexpr std::string_view s_header = "TMSTP.V1";
 
-public:
     Message() = default;
 
     uint64_t timestamp() const { return m_timestamp; }
