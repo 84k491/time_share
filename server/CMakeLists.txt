@@ -14,3 +14,5 @@ add_executable(TimeSyncServer ${time_sync_server_SRC})
 
 target_compile_options(TimeSyncServer PRIVATE "-g" "-Og" "-Wall" "-Wpedantic" "-Werror" "-Wextra")
 set_target_properties(TimeSyncServer PROPERTIES CXX_STANDARD 17)
+
+target_link_libraries(TimeSyncServer -lpthread)

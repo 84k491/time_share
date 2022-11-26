@@ -12,6 +12,7 @@
 #include <iostream>
 
 #include <message.h>
+#include <signal_handler.h>
 
 class MessageDecoder
 {
@@ -46,4 +47,5 @@ private:
     sockaddr_in address;
     std::array<char, 1024> m_data;
     bool m_is_ready = false;
+    OneShotSignalHandler m_signal_handler;
 };

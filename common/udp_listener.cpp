@@ -2,6 +2,9 @@
 #include <iostream>
 
 UdpListener::UdpListener()
+    : m_signal_handler([](int) {
+        std::cout << "Callback called!" << std::endl;
+    })
 {
     unsigned port = 45163;
 

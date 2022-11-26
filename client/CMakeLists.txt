@@ -14,3 +14,5 @@ add_executable(TimeSyncClient ${time_sync_client_SRC})
 
 target_compile_options(TimeSyncClient PRIVATE "-g" "-Og" "-Wall" "-Wpedantic" "-Werror" "-Wextra")
 set_target_properties(TimeSyncClient PROPERTIES CXX_STANDARD 17)
+
+target_link_libraries(TimeSyncClient -lpthread)
