@@ -1,19 +1,22 @@
 #include <iostream>
-#include "udp_listener.h"
 #include "signal_handler.h"
 #include "timestamp_factory.h"
+#include "message_decoder.h"
+
+class Message;
+class IListener;
 
 class TimestampConsumerApp
 {
 public:
-    TimestampConsumerApp(unsigned port);
+    TimestampConsumerApp(IListener & listener);
     int work();
 
 private:
     void on_message_received(const Message & msg) const;
 
 private:
-    UdpListener m_listener;
+    IListener & m_listener;
     OneShotSignalHandler m_signal_handler;
 };
 

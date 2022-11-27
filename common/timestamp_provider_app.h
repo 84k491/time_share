@@ -5,17 +5,17 @@
 #include "timer.h"
 
 namespace test {
-class SenderTest;
+class ProviderTest;
 }
 
 class TimestampProviderApp
 {
-    friend class test::SenderTest;
 public:
     TimestampProviderApp(ISender & sender);
     int work();
 
 private:
+    friend class test::ProviderTest;
     void set_iterations_limit(size_t m_iterations_limit);
 
 private:

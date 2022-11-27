@@ -11,44 +11,23 @@
 #include <functional>
 #include <array>
 #include <iostream>
+#include <tuple>
 
-#include <message.h>
+#include "message.h"
 #include "signal_handler.h"
+#include "i_listener.h"
 
-class MessageDecoder
+class UdpListener final : public IListener
 {
 public:
-    static const Message * decode(const void * data, size_t size)
-    {
-        if (size != Message::size()) {
-            std::cout << "Received size = " << size << std::endl;
-            return nullptr;
-        }
-        const auto * msg = reinterpret_cast<const Message *>(data);
-        if (!msg->verify()) {
-            msg->print();
-            std::cout << "message not verified" << std::endl;
-            return nullptr;
-        }
-        return msg;
-    }
-};
+    UdpListener(unsigned port);
+    ~UdpListener() override;
 
-class UdpListener
-{
-public:
-    UdpListener(std::function<void(const void *, size_t)> callback, unsigned port);
-    ~UdpListener();
-
-    void listen_loop();
-    bool is_ready() const { return m_is_ready; }
-    void stop();
+private:
+    std::tuple<int, const void *, size_t> obtain_data() override;
 
 private:
     int m_sockfd = {};
     sockaddr_in address;
     std::array<char, 1024> m_data;
-    bool m_is_ready = false;
-    std::atomic_bool m_need_to_stop = false;
-    std::function<void(const void *, size_t)> m_callback;
 };

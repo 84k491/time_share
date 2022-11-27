@@ -1,15 +1,17 @@
 #include "timestamp_consumer_app.h"
+#include "i_listener.h"
 
-TimestampConsumerApp::TimestampConsumerApp(unsigned port)
-    : m_listener([this](const void * data, size_t size){
+TimestampConsumerApp::TimestampConsumerApp(IListener & listener)
+    : m_listener(listener)
+    , m_signal_handler([this](int) { m_listener.stop(); })
+{
+    listener.set_callback([this](const void * data, size_t size) {
         const auto * msg_ptr = MessageDecoder::decode(data, size);
-        if (!msg_ptr) {
+        if (!msg_ptr || !msg_ptr->verify()) {
             return;
         }
         on_message_received(*msg_ptr);
-    }, port)
-    , m_signal_handler([this](int) { m_listener.stop(); })
-{
+    });
 }
 
 int TimestampConsumerApp::work()
