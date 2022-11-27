@@ -6,6 +6,11 @@
 
 ArgumentParser::ArgumentParser(int argc, char** argv)
 {
+    if (1 == argc) {
+        std::cout << "No port specified. Using the default one: " << defalut_port << std::endl;
+        m_port = defalut_port; 
+        return;
+    }
     if (argc != 2) {
         print_usage();
         return;
