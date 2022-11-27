@@ -33,6 +33,7 @@ protected:
     ProviderTest()
         : m_provider(m_sender)
     {
+        m_provider.m_do_printout = false;
     }
 
     void set_iterations(size_t v)

@@ -25,6 +25,7 @@ private:
 
 private:
     size_t m_iterations_limit = 0;
+    bool m_do_printout = true;
     ISender & m_sender;
     Timer m_timer;
     OneShotSignalHandler m_signal_handler;

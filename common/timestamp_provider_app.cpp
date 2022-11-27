@@ -20,7 +20,9 @@ int TimestampProviderApp::work()
                     std::cout << "Message is not valid on seding" << std::endl;
                     return -1;
                 }
-                std::cout << "Sending timestamp: " << ts << std::endl;
+                if (m_do_printout) {
+                    std::cout << "Sending timestamp: " << ts << std::endl;
+                }
                 return m_sender.send(msg.data(), Message::size());
             },
             sendind_interval,

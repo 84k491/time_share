@@ -82,6 +82,7 @@ protected:
         , m_consumer(m_listener)
     {
         m_provider.set_iterations_limit(amount_to_send);
+        m_provider.m_do_printout = false;
         m_consumer.m_on_msg_received = [&](const Message &) { ++m_received_count; };
     }
 
