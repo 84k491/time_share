@@ -10,9 +10,19 @@ include_directories(${PROJECT_SOURCE_DIR})
 include_directories("../common/")
 
 file(GLOB time_sync_client_SRC "*.cpp" "../common/*.cpp")
+
 add_executable(TimeSyncClient ${time_sync_client_SRC})
-
-target_compile_options(TimeSyncClient PRIVATE "-g" "-Og" "-Wall" "-Wpedantic" "-Werror" "-Wextra")
+target_compile_options(TimeSyncClient PRIVATE "-O2" "-Wall" "-Wpedantic" "-Werror" "-Wextra")
 set_target_properties(TimeSyncClient PROPERTIES CXX_STANDARD 17)
-
 target_link_libraries(TimeSyncClient -lpthread)
+
+add_executable(TimeSyncClientDebug ${time_sync_client_SRC})
+target_compile_options(TimeSyncClientDebug PRIVATE "-g" "-Og" "-Wall" "-Wpedantic" "-Werror" "-Wextra")
+set_target_properties(TimeSyncClientDebug PROPERTIES CXX_STANDARD 17)
+target_link_libraries(TimeSyncClientDebug -lpthread)
+
+add_executable(TimeSyncClientAsan ${time_sync_client_SRC})
+target_compile_options(TimeSyncClientAsan PRIVATE "-fsanitize=address" "-g" "-Wall" "-Wpedantic" "-Werror" "-Wextra")
+target_link_options(TimeSyncClientAsan PRIVATE "-fsanitize=address")
+set_target_properties(TimeSyncClientAsan PROPERTIES CXX_STANDARD 17)
+target_link_libraries(TimeSyncClientAsan -lpthread)
