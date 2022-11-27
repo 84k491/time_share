@@ -25,16 +25,6 @@ public:
         return std::equal(s_header.begin(), s_header.end(), m_verification_header.begin());
     }
 
-    // TODO remove
-    void print() const
-    {
-        char * p = (char*)this;
-        for (size_t i = 0; i < size(); ++i) {
-            std::cout << *p;
-        }
-        std::cout << std::endl;
-    }
-
     const void * data() const { return this; }
     static constexpr size_t size() { return sizeof(Message); }
 

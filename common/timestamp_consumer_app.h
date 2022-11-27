@@ -1,7 +1,6 @@
 #include <iostream>
 #include "signal_handler.h"
 #include "timestamp_factory.h"
-#include "message_decoder.h"
 
 class Message;
 class IListener;
@@ -14,6 +13,9 @@ class TimestampConsumerApp
 public:
     TimestampConsumerApp(IListener & listener);
     int work();
+
+private:
+    static const Message * decode(const void * data, size_t size);
 
 private:
     friend class test::ConsumerTest;

@@ -28,7 +28,6 @@ public:
             }
             m_callback(data, size);
         }
-        std::cout << "Stop listening" << std::endl;
     }
 
     bool is_ready() const { return m_is_ready; }

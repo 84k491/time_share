@@ -1,5 +1,6 @@
 #include "timestamp_consumer_app.h"
 #include "i_listener.h"
+#include "message.h"
 
 TimestampConsumerApp::TimestampConsumerApp(IListener & listener)
     : m_listener(listener)
@@ -15,8 +16,8 @@ TimestampConsumerApp::TimestampConsumerApp(IListener & listener)
     };
 
     listener.set_callback([this](const void * data, size_t size) {
-        const auto * msg_ptr = MessageDecoder::decode(data, size);
-        if (!msg_ptr || !msg_ptr->verify()) {
+        const auto * msg_ptr = decode(data, size);
+        if (!msg_ptr) {
             return;
         }
         m_on_msg_received(*msg_ptr);
@@ -32,4 +33,16 @@ int TimestampConsumerApp::work()
 
     m_listener.listen_loop();
     return 0;
+}
+
+const Message * TimestampConsumerApp::decode(const void * data, size_t size)
+{
+    if (size != Message::size()) {
+        return nullptr;
+    }
+    const auto * msg = reinterpret_cast<const Message *>(data);
+    if (!msg->verify()) {
+        return nullptr;
+    }
+    return msg;
 }
