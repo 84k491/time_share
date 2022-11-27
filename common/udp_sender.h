@@ -18,7 +18,7 @@ public:
     // TODO other ctors = delete
 
     bool is_ready() const override { return m_is_ready; }
-    int send(const Message & msg) override;
+    int send(const void * data, size_t size) override;
 
 private:
     bool m_is_ready = false;

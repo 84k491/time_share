@@ -1,5 +1,5 @@
 #include "timestamp_provider_app.h"
-
+#include "message.h"
 
 TimestampProviderApp::TimestampProviderApp(ISender & sender)
     : m_sender(sender)
@@ -19,7 +19,7 @@ int TimestampProviderApp::work()
             return -1;
         }
         std::cout << "Sending timestamp: " << ts << std::endl;
-        return m_sender.send(msg);
+        return m_sender.send(msg.data(), msg.size());
     }, std::chrono::milliseconds(100), m_iterations_limit);
 }
 

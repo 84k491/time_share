@@ -6,6 +6,7 @@ class Message;
 class IListener;
 namespace test {
 class ConsumerTest;
+class EndToEndTest;
 }
 
 class TimestampConsumerApp
@@ -19,6 +20,7 @@ private:
 
 private:
     friend class test::ConsumerTest;
+    friend class test::EndToEndTest;
     std::function<void(const Message & msg)> m_on_msg_received;
 
     IListener & m_listener;

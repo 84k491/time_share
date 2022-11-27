@@ -5,7 +5,7 @@ UdpSender::UdpSender(unsigned port)
 {
     // Creating socket file descriptor
     if ((m_sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-      std::cout << "Socket creating failed" << std::endl;
+      std::cout << "Socket creation failed" << std::endl;
       return;
     }
 
@@ -22,11 +22,11 @@ UdpSender::UdpSender(unsigned port)
     m_is_ready = true;
 }
 
-int UdpSender::send(const Message & msg)
+int UdpSender::send(const void * data, size_t size)
 {
     int rc = -1;
-    if (rc = sendto(m_sockfd, msg.data(), msg.size(), 0,
-        (const sockaddr *)&cliaddr, sizeof(cliaddr)); rc > 0) {
+    if (rc = sendto(m_sockfd, data, size, 0, (const sockaddr *)&cliaddr, sizeof(cliaddr)); rc > 0) {
+        // TODO !
     }
     return rc;
 }

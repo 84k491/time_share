@@ -5,6 +5,7 @@
 #include "timer.h"
 
 namespace test {
+class EndToEndTest;
 class ProviderTest;
 }
 
@@ -15,6 +16,7 @@ public:
     int work();
 
 private:
+    friend class test::EndToEndTest;
     friend class test::ProviderTest;
     void set_iterations_limit(size_t m_iterations_limit);
 

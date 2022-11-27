@@ -19,9 +19,9 @@ public:
         if (m_messages_to_receive.empty()) {
             return {-1, nullptr, 0}; // simulating socket failure to stop consumer loop
         }
-        m_received_messasge = std::move(m_messages_to_receive.front());
+        m_received_message = std::move(m_messages_to_receive.front());
         m_messages_to_receive.pop();
-        return {0, m_received_messasge.data(), m_received_messasge.size()};
+        return {0, m_received_message.data(), m_received_message.size()};
     }
 
     void set_is_ready(bool value) { m_is_ready = value; }
@@ -33,7 +33,7 @@ public:
 
 private:
     std::queue<std::vector<char>> m_messages_to_receive;
-    std::vector<char> m_received_messasge;
+    std::vector<char> m_received_message;
 };
 
 class ConsumerTest : public ::testing::Test
