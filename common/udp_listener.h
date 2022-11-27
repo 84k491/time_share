@@ -28,6 +28,6 @@ private:
 
 private:
     int m_sockfd = {};
-    sockaddr_in address;
-    std::array<char, 1024> m_data;
+    sockaddr_in address = {};
+    std::array<char, 1024> m_data = {};
 };

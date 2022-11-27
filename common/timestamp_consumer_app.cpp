@@ -17,7 +17,7 @@ TimestampConsumerApp::TimestampConsumerApp(IListener & listener)
 
     listener.set_callback([this](const void * data, size_t size) {
         const auto * msg_ptr = decode(data, size);
-        if (!msg_ptr) {
+        if (nullptr == msg_ptr) {
             return;
         }
         m_on_msg_received(*msg_ptr);

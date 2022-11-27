@@ -21,7 +21,7 @@ public:
         : m_channel(channel)
     {
     }
-    ~MockSenderWithChannel() override = default; // TODO check all virtual dtors
+    ~MockSenderWithChannel() override = default;
 
     int send(const void * data, size_t size) override
     {

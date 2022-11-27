@@ -2,7 +2,7 @@
 #include <iostream>
 
 OneShotSignalHandler::OneShotSignalHandler(std::function<void(int)> callback)
-    : m_callback(callback)
+    : m_callback(std::move(callback))
 {
     block_signal();
     m_thread_ptr = std::make_unique<std::thread>([this]() {

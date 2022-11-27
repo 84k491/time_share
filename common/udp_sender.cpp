@@ -25,8 +25,14 @@ UdpSender::UdpSender(unsigned port)
 int UdpSender::send(const void * data, size_t size)
 {
     int rc = -1;
-    if (rc = sendto(m_sockfd, data, size, 0, (const sockaddr *)&cliaddr, sizeof(cliaddr)); rc > 0) {
-        // TODO !
+    if (rc = sendto(
+        m_sockfd,
+        data,
+        size,
+        0,
+        reinterpret_cast<const sockaddr *>(&cliaddr),
+        sizeof(cliaddr)); rc < 0) {
+        std::cout << "Sending failed" << std::endl;
     }
     return rc;
 }

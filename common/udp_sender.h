@@ -23,5 +23,5 @@ public:
 private:
     bool m_is_ready = false;
     int m_sockfd = {};
-    sockaddr_in cliaddr;
+    sockaddr_in cliaddr = {};
 };

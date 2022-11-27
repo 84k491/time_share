@@ -19,8 +19,8 @@ int TimestampProviderApp::work()
             return -1;
         }
         std::cout << "Sending timestamp: " << ts << std::endl;
-        return m_sender.send(msg.data(), msg.size());
-    }, std::chrono::milliseconds(100), m_iterations_limit);
+        return m_sender.send(msg.data(), Message::size());
+    }, sendind_interval, m_iterations_limit);
 }
 
 void TimestampProviderApp::set_iterations_limit(size_t iterations_limit)

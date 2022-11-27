@@ -12,7 +12,7 @@ class MockListener final : public IListener
 {
 public:
     MockListener() = default;
-    ~MockListener() = default;
+    ~MockListener() override = default;
 
     std::tuple<int, const void *, size_t> obtain_data() override
     {
@@ -94,7 +94,7 @@ TEST_F(ConsumerTest, dont_receive_old_version_message)
     msg.fill_verification_header();
     msg.set_timestamp(0);
 
-    char * version = &data[7];
+    char * version = &data[Message::s_header.size() - 1];
     ASSERT_EQ(*version, '1');
     *version = '0';
     ASSERT_FALSE(msg.verify());

@@ -11,6 +11,7 @@ class ProviderTest;
 
 class TimestampProviderApp
 {
+    static constexpr auto sendind_interval = std::chrono::milliseconds(100);
 public:
     TimestampProviderApp(ISender & sender);
     int work();
