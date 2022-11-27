@@ -5,6 +5,9 @@
 
 class Message;
 class IListener;
+namespace test {
+class ConsumerTest;
+}
 
 class TimestampConsumerApp
 {
@@ -13,9 +16,9 @@ public:
     int work();
 
 private:
-    void on_message_received(const Message & msg) const;
+    friend class test::ConsumerTest;
+    std::function<void(const Message & msg)> m_on_msg_received;
 
-private:
     IListener & m_listener;
     OneShotSignalHandler m_signal_handler;
 };

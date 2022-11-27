@@ -47,6 +47,11 @@ protected:
         m_listener.set_is_ready(true);
     }
 
+    void set_consumer_callback(std::function<void(const Message & msg)> && callback)
+    {
+        m_consumer.m_on_msg_received = callback;
+    }
+
     MockListener m_listener;
     TimestampConsumerApp m_consumer;
 };
@@ -60,7 +65,11 @@ TEST_F(ConsumerTest, receive_single_message)
     msg.set_timestamp(0);
     m_listener.push_message(std::move(data));
 
+    size_t count = 0;
+    set_consumer_callback([&](const Message &) { ++count; });
     m_consumer.work();
+
+    EXPECT_EQ(count, 1);
 }
 
 }
