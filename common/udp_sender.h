@@ -1,17 +1,17 @@
 #pragma once
 
 #include "i_sender.h"
-#include <netinet/in.h>
 
+#include <netinet/in.h>
 
 class UdpSender final : public ISender
 {
 public:
     UdpSender(unsigned port);
-    UdpSender(const UdpSender&) = delete;
-    UdpSender(UdpSender&&) = delete;
-    UdpSender & operator=(const UdpSender&) = delete;
-    UdpSender & operator=(UdpSender&&) = delete;
+    UdpSender(const UdpSender &) = delete;
+    UdpSender(UdpSender &&) = delete;
+    UdpSender & operator=(const UdpSender &) = delete;
+    UdpSender & operator=(UdpSender &&) = delete;
     ~UdpSender() override;
 
     bool is_ready() const override { return m_is_ready; }

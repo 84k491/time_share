@@ -10,10 +10,10 @@ class UdpListener final : public IListener
 {
 public:
     UdpListener(unsigned port);
-    UdpListener(const UdpListener&) = delete;
-    UdpListener(UdpListener&&) = delete;
-    UdpListener & operator=(const UdpListener&) = delete;
-    UdpListener & operator=(UdpListener&&) = delete;
+    UdpListener(const UdpListener &) = delete;
+    UdpListener(UdpListener &&) = delete;
+    UdpListener & operator=(const UdpListener &) = delete;
+    UdpListener & operator=(UdpListener &&) = delete;
     ~UdpListener() override;
 
 private:
