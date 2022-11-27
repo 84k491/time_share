@@ -1,20 +1,20 @@
 #pragma once
 
-#include <iostream>
-
 #include <atomic>
 #include <csignal>
+#include <functional>
+#include <iostream>
+#include <memory>
+#include <set>
 #include <signal.h>
 #include <sys/types.h>
-#include <unistd.h>
-#include <set>
 #include <thread>
-#include <functional>
-#include <memory>
+#include <unistd.h>
 
 class OneShotSignalHandler
 {
     static constexpr int signal_to_catch = SIGUSR2;
+
 public:
     OneShotSignalHandler(std::function<void(int)> callback);
     ~OneShotSignalHandler();

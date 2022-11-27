@@ -1,4 +1,5 @@
 #include "udp_listener.h"
+
 #include <iostream>
 
 UdpListener::UdpListener(unsigned port)
@@ -19,9 +20,9 @@ UdpListener::UdpListener(unsigned port)
     address.sin_addr.s_addr = INADDR_BROADCAST;
 
     if (int rc = bind(
-            m_sockfd,
-            reinterpret_cast<const struct sockaddr *>(&address),
-            sizeof(address));
+                m_sockfd,
+                reinterpret_cast<const struct sockaddr *>(&address),
+                sizeof(address));
         rc < 0) {
         std::cout << "Binding on port " << port << " failed! rc: " << rc << std::endl;
         return;
@@ -46,22 +47,20 @@ std::tuple<int, const void *, size_t> UdpListener::obtain_data()
     FD_ZERO(&readSet);
     FD_SET(m_sockfd, &readSet);
 
-    if (select(m_sockfd + 1, &readSet, nullptr, nullptr, &timeout) >= 0)
-    {
-       if (FD_ISSET(m_sockfd, &readSet) > 0)
-       {
+    if (select(m_sockfd + 1, &readSet, nullptr, nullptr, &timeout) >= 0) {
+        if (FD_ISSET(m_sockfd, &readSet) > 0) {
             int len = 0;
             int bytes_received = recvfrom(
-                m_sockfd,
-                m_data.data(),
-                m_data.size(),
-                MSG_WAITALL,
-                reinterpret_cast<struct sockaddr *>(&address),
-                reinterpret_cast<socklen_t *>(&len));
+                    m_sockfd,
+                    m_data.data(),
+                    m_data.size(),
+                    MSG_WAITALL,
+                    reinterpret_cast<struct sockaddr *>(&address),
+                    reinterpret_cast<socklen_t *>(&len));
             if (bytes_received > 0) {
                 return {0, m_data.data(), bytes_received};
             }
-       }
+        }
         return {0, nullptr, 0};
     }
 

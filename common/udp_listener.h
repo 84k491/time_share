@@ -1,21 +1,20 @@
-#include <stdio.h> 
-#include <stdlib.h> 
-#include <unistd.h> 
-#include <string.h> 
-#include <sys/types.h> 
-#include <sys/socket.h> 
-#include <arpa/inet.h> 
-#include <netinet/in.h> 
-
-#include <atomic>
-#include <functional>
-#include <array>
-#include <iostream>
-#include <tuple>
-
+#include "i_listener.h"
 #include "message.h"
 #include "signal_handler.h"
-#include "i_listener.h"
+
+#include <arpa/inet.h>
+#include <array>
+#include <atomic>
+#include <functional>
+#include <iostream>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <tuple>
+#include <unistd.h>
 
 class UdpListener final : public IListener
 {

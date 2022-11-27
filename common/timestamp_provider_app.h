@@ -1,17 +1,19 @@
-#include "signal_handler.h"
-#include <iostream>
 #include "i_sender.h"
-#include "timestamp_factory.h"
+#include "signal_handler.h"
 #include "timer.h"
+#include "timestamp_factory.h"
+
+#include <iostream>
 
 namespace test {
 class EndToEndTest;
 class ProviderTest;
-}
+} // namespace test
 
 class TimestampProviderApp
 {
     static constexpr auto sendind_interval = std::chrono::milliseconds(100);
+
 public:
     TimestampProviderApp(ISender & sender);
     int work();
@@ -27,4 +29,3 @@ private:
     Timer m_timer;
     OneShotSignalHandler m_signal_handler;
 };
-

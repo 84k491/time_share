@@ -2,8 +2,8 @@
 
 #include <algorithm>
 #include <array>
-#include <string_view>
 #include <iostream>
+#include <string_view>
 
 class Message
 {
@@ -32,4 +32,3 @@ private:
     std::array<char, s_header.size()> m_verification_header;
     uint64_t m_timestamp;
 };
-

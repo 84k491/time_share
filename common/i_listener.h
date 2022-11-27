@@ -20,8 +20,7 @@ public:
             return;
         }
 
-        while(!m_need_to_stop.load())
-        {
+        while (!m_need_to_stop.load()) {
             const auto [rc, data, size] = obtain_data();
             if (rc != 0) {
                 break;
