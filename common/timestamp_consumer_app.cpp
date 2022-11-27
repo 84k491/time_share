@@ -18,7 +18,7 @@ TimestampConsumerApp::TimestampConsumerApp(IListener & listener)
         std::cout << "-------" << std::endl;
     };
 
-    listener.set_callback([this](const void * data, size_t size) {
+    listener.set_on_data_received([this](const void * data, size_t size) {
         const auto * msg_ptr = decode(data, size);
         if (nullptr == msg_ptr) {
             return;

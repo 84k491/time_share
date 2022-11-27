@@ -9,25 +9,8 @@ class Timer : public ISignalControllable
 public:
     ~Timer() override = default;
 
-    int work(std::function<int()> callback, std::chrono::milliseconds interval, size_t limit = 0)
-    {
-        int rc = 0;
-        auto timepoint = std::chrono::ceil<std::chrono::milliseconds>(std::chrono::steady_clock::now());
-        size_t count = 0;
-        while ((!m_need_to_stop.load() || 0 == rc) &&
-               ((0 == limit) != limit > count)) {
-            ++count;
-            timepoint += interval;
-            std::this_thread::sleep_until(timepoint);
-            rc = callback();
-        }
-        return rc;
-    }
-
-    void on_signal(int) override
-    {
-        m_need_to_stop.store(true);
-    }
+    int work(std::function<int()> callback, std::chrono::milliseconds interval, size_t limit = 0);
+    void on_signal(int) override;
 
 private:
     std::atomic_bool m_need_to_stop = false;
