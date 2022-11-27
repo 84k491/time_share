@@ -6,7 +6,6 @@
 
 #include <iostream>
 
-
 TimestampConsumerApp::TimestampConsumerApp(IListener & listener)
     : m_listener(listener)
     , m_printer(std::make_unique<Printer>())

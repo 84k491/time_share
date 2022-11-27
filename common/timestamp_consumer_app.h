@@ -1,6 +1,6 @@
+#include "i_printer.h"
 #include "signal_handler.h"
 #include "timestamp_factory.h"
-#include "i_printer.h"
 
 class Message;
 class IListener;

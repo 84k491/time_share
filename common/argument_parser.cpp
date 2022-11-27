@@ -4,11 +4,11 @@
 #include <iostream>
 #include <string_view>
 
-ArgumentParser::ArgumentParser(int argc, char** argv)
+ArgumentParser::ArgumentParser(int argc, char ** argv)
 {
     if (1 == argc) {
         std::cout << "No port specified. Using the default one: " << defalut_port << std::endl;
-        m_port = defalut_port; 
+        m_port = defalut_port;
         return;
     }
     if (argc != 2) {

@@ -5,8 +5,9 @@
 class ArgumentParser
 {
     static constexpr unsigned defalut_port = 55555;
+
 public:
-    ArgumentParser(int argc, char** argv);
+    ArgumentParser(int argc, char ** argv);
     std::optional<unsigned> port() const { return m_port; }
 
 private:
