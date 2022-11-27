@@ -26,3 +26,5 @@ target_compile_options(TimeSyncClientAsan PRIVATE "-fsanitize=address" "-g" "-Wa
 target_link_options(TimeSyncClientAsan PRIVATE "-fsanitize=address")
 set_target_properties(TimeSyncClientAsan PROPERTIES CXX_STANDARD 17)
 target_link_libraries(TimeSyncClientAsan -lpthread)
+
+install(TARGETS TimeSyncClient TimeSyncClientDebug TimeSyncClientAsan DESTINATION ${PROJECT_SOURCE_DIR}/../bin)

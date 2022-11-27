@@ -26,3 +26,5 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(Tests)
+
+install(TARGETS Tests DESTINATION ${PROJECT_SOURCE_DIR}/../bin)
