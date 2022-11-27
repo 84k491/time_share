@@ -2,20 +2,23 @@
 
 #include "i_listener.h"
 #include "message.h"
+#include "printer.h"
 
 #include <iostream>
 
+
 TimestampConsumerApp::TimestampConsumerApp(IListener & listener)
     : m_listener(listener)
+    , m_printer(std::make_unique<Printer>())
     , m_signal_handler(m_listener)
 {
-    m_on_msg_received = [](const Message & msg) {
+    m_on_msg_received = [this](const Message & msg) {
+        if (!m_printer) {
+            return;
+        }
         const auto local_ts = TimestampFactory::get_timestamp_ms();
         const auto recevied_ts = msg.timestamp();
-        std::cout << "Local timestamp   : " << local_ts << std::endl;
-        std::cout << "Recevied timestamp: " << recevied_ts << std::endl;
-        std::cout << "Difference        : " << local_ts - recevied_ts << std::endl;
-        std::cout << "-------" << std::endl;
+        m_printer->print(local_ts, recevied_ts, local_ts - recevied_ts);
     };
 
     listener.set_on_data_received([this](const void * data, size_t size) {

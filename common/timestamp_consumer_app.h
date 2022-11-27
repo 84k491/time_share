@@ -1,5 +1,6 @@
 #include "signal_handler.h"
 #include "timestamp_factory.h"
+#include "i_printer.h"
 
 class Message;
 class IListener;
@@ -24,5 +25,6 @@ private:
     std::function<void(const Message & msg)> m_on_msg_received;
 
     IListener & m_listener;
+    std::unique_ptr<IPrinter> m_printer;
     OneShotSignalHandler m_signal_handler;
 };
