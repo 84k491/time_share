@@ -1,7 +1,8 @@
-#include <gtest/gtest.h>
-#include <algorithm>
-
 #include "message.h"
+
+#include <gtest/gtest.h>
+
+#include <algorithm>
 
 TEST(MessageTest, timestamp_set_and_get)
 {
@@ -16,7 +17,7 @@ TEST(MessageTest, verification_header_check)
     std::array<char, Message::size()> mem;
     std::fill(mem.begin(), mem.end(), 'A');
 
-    auto * ptr = new(mem.data()) Message();
+    auto * ptr = new (mem.data()) Message();
     ASSERT_TRUE(ptr);
     auto & msg = *ptr;
 

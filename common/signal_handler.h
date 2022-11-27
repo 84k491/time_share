@@ -17,6 +17,10 @@ class OneShotSignalHandler
 
 public:
     OneShotSignalHandler(std::function<void(int)> callback);
+    OneShotSignalHandler(const OneShotSignalHandler&) = delete;
+    OneShotSignalHandler(OneShotSignalHandler&&) = delete;
+    OneShotSignalHandler & operator=(const OneShotSignalHandler&) = delete;
+    OneShotSignalHandler & operator=(OneShotSignalHandler&&) = delete;
     ~OneShotSignalHandler();
 
 private:

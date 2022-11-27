@@ -14,6 +14,7 @@ public:
         m_callback = callback;
     }
 
+    // TODO move to CPP
     void listen_loop()
     {
         if (!m_is_ready) {

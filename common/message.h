@@ -10,8 +10,6 @@ class Message
 public:
     static constexpr std::string_view s_header = "TMSTP.V1";
 
-    Message() = default;
-
     uint64_t timestamp() const { return m_timestamp; }
     void set_timestamp(const uint64_t v) { m_timestamp = v; }
 

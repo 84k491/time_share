@@ -2,7 +2,6 @@
 
 #include <chrono>
 #include <cstdint>
-#include <iostream>
 
 class TimestampFactory
 {

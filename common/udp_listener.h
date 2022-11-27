@@ -1,3 +1,5 @@
+#pragma once
+
 #include "i_listener.h"
 #include "message.h"
 #include "signal_handler.h"
@@ -7,7 +9,7 @@
 #include <atomic>
 #include <functional>
 #include <iostream>
-#include <netinet/in.h>
+#include <netinet/in.h> // TODO remove c headers
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -20,6 +22,10 @@ class UdpListener final : public IListener
 {
 public:
     UdpListener(unsigned port);
+    UdpListener(const UdpListener&) = delete;
+    UdpListener(UdpListener&&) = delete;
+    UdpListener & operator=(const UdpListener&) = delete;
+    UdpListener & operator=(UdpListener&&) = delete;
     ~UdpListener() override;
 
 private:

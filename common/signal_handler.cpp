@@ -1,5 +1,5 @@
 #include <iostream>
-#include <signal_handler.h>
+#include "signal_handler.h"
 
 OneShotSignalHandler::OneShotSignalHandler(std::function<void(int)> callback)
     : m_callback(std::move(callback))

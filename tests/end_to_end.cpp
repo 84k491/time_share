@@ -1,10 +1,12 @@
-#include <gtest/gtest.h>
-#include <queue>
-#include <algorithm>
-#include "i_sender.h"
 #include "i_listener.h"
-#include "timestamp_provider_app.h"
+#include "i_sender.h"
 #include "timestamp_consumer_app.h"
+#include "timestamp_provider_app.h"
+
+#include <gtest/gtest.h>
+
+#include <algorithm>
+#include <queue>
 
 namespace test {
 
@@ -29,9 +31,9 @@ public:
             std::vector<char> vec_to_push;
             size_t count = 0;
             std::generate_n(
-                std::back_inserter(vec_to_push),
-                size,
-                [&]() -> char { return *(static_cast<const char *>(data) + count++); });
+                    std::back_inserter(vec_to_push),
+                    size,
+                    [&]() -> char { return *(static_cast<const char *>(data) + count++); });
             m_channel.m_sent_messages.emplace(std::move(vec_to_push));
             return 0;
         }
@@ -104,4 +106,4 @@ TEST_F(EndToEndTest, general_scenario)
     EXPECT_EQ(amount_to_send, m_received_count);
 }
 
-}
+} // namespace test

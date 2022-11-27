@@ -1,3 +1,5 @@
+#pragma once
+
 #include "i_sender.h"
 #include "signal_handler.h"
 #include "timer.h"

@@ -1,10 +1,9 @@
 #include "signal_handler.h"
 #include "timestamp_factory.h"
 
-#include <iostream>
-
 class Message;
 class IListener;
+
 namespace test {
 class ConsumerTest;
 class EndToEndTest;

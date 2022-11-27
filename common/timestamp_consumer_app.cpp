@@ -3,6 +3,8 @@
 #include "i_listener.h"
 #include "message.h"
 
+#include <iostream>
+
 TimestampConsumerApp::TimestampConsumerApp(IListener & listener)
     : m_listener(listener)
     , m_signal_handler([this](int) { m_listener.stop(); })

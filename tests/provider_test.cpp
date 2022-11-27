@@ -1,6 +1,7 @@
-#include <gtest/gtest.h>
-#include "timestamp_provider_app.h" 
 #include "message.h"
+#include "timestamp_provider_app.h"
+
+#include <gtest/gtest.h>
 
 namespace test {
 
@@ -77,4 +78,4 @@ TEST_F(ProviderTest, send_one_message__check_message_structure)
     EXPECT_GT(msg.timestamp(), 0);
 }
 
-}
+} // namespace test

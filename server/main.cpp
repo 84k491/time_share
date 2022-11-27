@@ -1,6 +1,7 @@
-#include <iostream>
 #include "timestamp_provider_app.h"
 #include "udp_sender.h"
+
+#include <iostream>
 
 int main(int, char **)
 {

@@ -1,6 +1,7 @@
-#include <iostream>
 #include "timestamp_consumer_app.h"
 #include "udp_listener.h"
+
+#include <iostream>
 
 int main(int, char **)
 {
