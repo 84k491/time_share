@@ -22,6 +22,7 @@ public:
     MockSenderWithChannel(MockPhysicalChannel & channel)
         : m_channel(channel)
     {
+        m_is_ready = true;
     }
     ~MockSenderWithChannel() override = default;
 
@@ -40,10 +41,7 @@ public:
         return -1;
     }
 
-    bool is_ready() const override { return m_is_ready; }
-
 private:
-    bool m_is_ready = true;
     MockPhysicalChannel & m_channel;
 };
 

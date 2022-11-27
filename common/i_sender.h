@@ -8,5 +8,8 @@ public:
     virtual ~ISender() = default;
 
     virtual int send(const void * data, size_t size) = 0;
-    virtual bool is_ready() const = 0; // TODO just move it here, no need to override it
+    bool is_ready() const { return m_is_ready; }
+
+protected:
+    bool m_is_ready = false;
 };

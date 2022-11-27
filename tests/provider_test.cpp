@@ -8,7 +8,11 @@ namespace test {
 class MockSender final : public ISender
 {
 public:
-    ~MockSender() override {}
+    MockSender()
+    {
+        m_is_ready = true;
+    }
+    ~MockSender() override = default;
     int send(const void * data, size_t) override
     {
         if (m_is_ready) {
@@ -19,12 +23,10 @@ public:
     }
 
     auto sent_count() const { return m_sent_messages.size(); }
-    bool is_ready() const override { return m_is_ready; }
     void set_is_ready(bool value) { m_is_ready = value; }
     const auto & last_sent_message() const { return m_sent_messages.back(); }
 
 private:
-    bool m_is_ready = true;
     std::vector<Message> m_sent_messages;
 };
 

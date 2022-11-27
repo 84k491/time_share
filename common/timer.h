@@ -4,7 +4,7 @@
 #include <chrono>
 #include <functional>
 
-class Timer : public ISignalControllable
+class Timer final : public ISignalControllable
 {
 public:
     ~Timer() override = default;

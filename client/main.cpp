@@ -13,7 +13,7 @@ int main(int argc, char ** argv)
     }
     UdpListener listener(port_opt.value());
     TimestampConsumerApp app(listener);
-    int rc = app.work();
+    const int rc = app.work();
     std::cout << "Graceful stop" << std::endl;
     return rc;
 }

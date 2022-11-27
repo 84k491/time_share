@@ -32,6 +32,9 @@ UdpSender::UdpSender(unsigned port)
 int UdpSender::send(const void * data, size_t size)
 {
     int rc = -1;
+    if (!m_is_ready) {
+        return -1;
+    }
     if (rc = sendto(
                 m_sockfd,
                 data,
