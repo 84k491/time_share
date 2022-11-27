@@ -1,5 +1,7 @@
 #pragma once
 
+#include "i_signal_controllable.h"
+
 #include <atomic>
 #include <csignal>
 #include <functional>
@@ -16,7 +18,7 @@ class OneShotSignalHandler
     static constexpr int signal_to_catch = SIGUSR2;
 
 public:
-    OneShotSignalHandler(std::function<void(int)> callback);
+    OneShotSignalHandler(ISignalControllable & controllable);
     OneShotSignalHandler(const OneShotSignalHandler &) = delete;
     OneShotSignalHandler(OneShotSignalHandler &&) = delete;
     OneShotSignalHandler & operator=(const OneShotSignalHandler &) = delete;
@@ -28,6 +30,6 @@ private:
 
 private:
     std::atomic_bool m_shot = false;
-    std::function<void(int)> m_callback;
+    ISignalControllable & m_controllable;
     std::unique_ptr<std::thread> m_thread_ptr;
 };

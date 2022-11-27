@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-OneShotSignalHandler::OneShotSignalHandler(std::function<void(int)> callback)
-    : m_callback(std::move(callback))
+OneShotSignalHandler::OneShotSignalHandler(ISignalControllable & controllable)
+    : m_controllable(controllable)
 {
     block_signal();
     m_thread_ptr = std::make_unique<std::thread>([this]() {
@@ -13,7 +13,7 @@ OneShotSignalHandler::OneShotSignalHandler(std::function<void(int)> callback)
         int signal_number = 0;
         sigwait(&signals, &signal_number);
         m_shot = true;
-        m_callback(signal_to_catch);
+        m_controllable.on_signal(signal_to_catch);
     });
 }
 

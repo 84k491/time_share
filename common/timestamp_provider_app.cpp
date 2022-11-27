@@ -4,7 +4,7 @@
 
 TimestampProviderApp::TimestampProviderApp(ISender & sender)
     : m_sender(sender)
-    , m_signal_handler([this](auto) { m_timer.stop(); })
+    , m_signal_handler(m_timer)
 {
 }
 

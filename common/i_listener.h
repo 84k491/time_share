@@ -1,14 +1,17 @@
 #pragma once
 
+#include "i_signal_controllable.h"
+
 #include <atomic>
 #include <functional>
 
-class IListener
+class IListener : public ISignalControllable
 {
 public:
     IListener() = default;
-    virtual ~IListener() = default;
+    ~IListener() override = default;
 
+    // TODO rename callback
     void set_callback(std::function<void(const void *, size_t)> callback)
     {
         m_callback = callback;
@@ -32,7 +35,7 @@ public:
 
     bool is_ready() const { return m_is_ready; }
 
-    void stop()
+    void on_signal(int) override
     {
         m_need_to_stop.store(true);
     }

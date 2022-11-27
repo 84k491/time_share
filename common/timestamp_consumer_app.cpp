@@ -7,7 +7,7 @@
 
 TimestampConsumerApp::TimestampConsumerApp(IListener & listener)
     : m_listener(listener)
-    , m_signal_handler([this](int) { m_listener.stop(); })
+    , m_signal_handler(m_listener)
 {
     m_on_msg_received = [](const Message & msg) {
         const auto local_ts = TimestampFactory::get_timestamp_ms();
