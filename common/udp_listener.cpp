@@ -1,6 +1,13 @@
 #include "udp_listener.h"
 
 #include <iostream>
+#include <string.h>
+#include <arpa/inet.h>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <sys/socket.h>
+#include <tuple>
 
 UdpListener::UdpListener(unsigned port)
 {
@@ -34,9 +41,9 @@ UdpListener::UdpListener(unsigned port)
 
 UdpListener::~UdpListener()
 {
-    // TODO check if inited
-    close(m_sockfd);
-    std::cout << "Socket " << m_sockfd << " closed" << std::endl;
+    if (0 != m_sockfd) {
+        close(m_sockfd);
+    }
 }
 
 std::tuple<int, const void *, size_t> UdpListener::obtain_data()

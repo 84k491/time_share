@@ -1,22 +1,10 @@
 #pragma once
 
 #include "i_listener.h"
-#include "message.h"
 #include "signal_handler.h"
 
-#include <arpa/inet.h>
 #include <array>
-#include <atomic>
-#include <functional>
-#include <iostream>
-#include <netinet/in.h> // TODO remove c headers
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <tuple>
-#include <unistd.h>
+#include <netinet/in.h>
 
 class UdpListener final : public IListener
 {

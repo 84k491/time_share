@@ -1,10 +1,16 @@
 #include "udp_sender.h"
 
 #include <iostream>
+#include <arpa/inet.h>
+#include <cstdio>
+#include <cstdlib>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 UdpSender::UdpSender(unsigned port)
 {
-    // Creating socket file descriptor
     if ((m_sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
         std::cout << "Socket creation failed" << std::endl;
         return;
@@ -41,6 +47,7 @@ int UdpSender::send(const void * data, size_t size)
 
 UdpSender::~UdpSender()
 {
-    close(m_sockfd); // TODO check if inited
-    std::cout << "Socket " << m_sockfd << " closed" << std::endl;
+    if (0 != m_sockfd) {
+        close(m_sockfd);
+    }
 }
