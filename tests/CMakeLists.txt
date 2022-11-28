@@ -7,9 +7,9 @@ set(CMAKE_CXX_STANDARD 17)
 project(Tests VERSION 1.0)
 
 include_directories(${PROJECT_SOURCE_DIR})
-include_directories("../common/")
+include_directories("../common/" "../client_specific" "../server_specific")
 
-file(GLOB tests_SRC "*.cpp" "../common/*.cpp")
+file(GLOB tests_SRC "*.cpp" "../common/*.cpp" "../client_specific/*.cpp" "../server_specific/*.cpp")
 add_executable(Tests ${tests_SRC})
 
 target_compile_options(Tests PRIVATE "-g" "-Og" "-Wall" "-Wpedantic" "-Werror" "-Wextra")

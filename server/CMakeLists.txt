@@ -7,9 +7,9 @@ set(CMAKE_CXX_STANDARD 17)
 project(TimeSyncServer VERSION 1.0)
 
 include_directories(${PROJECT_SOURCE_DIR})
-include_directories("../common/")
+include_directories("../common/" "../server_specific/")
 
-file(GLOB time_sync_server_SRC "*.cpp" "../common/*.cpp")
+file(GLOB time_sync_server_SRC "*.cpp" "../common/*.cpp" "../server_specific/*.cpp")
 
 add_executable(TimeSyncServer ${time_sync_server_SRC})
 target_compile_options(TimeSyncServer PRIVATE "-O2" "-Wall" "-Wpedantic" "-Werror" "-Wextra")
