@@ -5,6 +5,7 @@ set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 set(CMAKE_CXX_STANDARD 17)
 
 project(TimeSyncClient VERSION 1.0)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories("../common/" "../client_specific/")
