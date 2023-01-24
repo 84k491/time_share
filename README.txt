@@ -19,8 +19,7 @@ Both client and server:
     - Built with CMake.
     - Have 3 build types: Release, Debug and ASan
 
-All projects can be built with "build.sh" script in a corresponding directory.
-There is a one-for-all build script "build_all.sh" that compiles all projects and runs tests after.
+All projects can be built with "build.sh" script.
 
 Requires clang, cmake, gtests installed.
 
